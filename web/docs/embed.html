@@ -475,7 +475,12 @@ sed -i "s|/percentage/[0-9]*|/percentage/${COVERAGE}|" README.md</code></pre>
             : "https://barbuilder.dev";
 
         document.querySelectorAll("img[data-src]").forEach((img) => {
-          img.src = API_BASE + img.dataset.src;
+          const ds = img.dataset.src || "";
+          if (/^(?:https?:)?\/\//i.test(ds)) {
+            img.src = ds;
+          } else {
+            img.src = API_BASE + ds;
+          }
         });
       })();
     </script>

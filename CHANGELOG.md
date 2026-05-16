@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [2.0.0] - 2026-01-15
+## [1.0.0] - 2026-01-15
 
 ### Changed
 
@@ -29,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Worker emits a fixed set of security headers on every response: `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `X-XSS-Protection: 0`, and `Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'`.
 - Error messages embedded in error SVGs are stripped of `<>&"'` to prevent reflection.
 
-## [1.0.0]
+## [0.1.0]
 
 Initial release. Three-tier architecture (Worker → Fastify origin → in-memory state). Percentage / X-of-Y / icon progress types; classic, pill, minimal, badge, segments styles; single, gradient, and threshold colour modes; light and dark themes.
 

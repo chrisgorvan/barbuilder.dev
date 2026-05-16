@@ -1,0 +1,20 @@
+{
+  "name": "@barbuilder/core",
+  "version": "2.0.0",
+  "type": "module",
+  "description": "Shared core logic for BarBuilder.dev progress bar generation",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "test": "vitest",
+    "test:coverage": "vitest --coverage"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "4.1.6",
+    "typescript": "6.0.3",
+    "vitest": "4.1.6"
+  }
+}

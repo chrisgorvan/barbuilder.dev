@@ -1,0 +1,68 @@
+name: Bug report
+description: Report a bug in BarBuilder.dev
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file a bug. Please fill in as much of the form as you can.
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: One-sentence description of the problem.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Steps to reproduce, ideally with the exact request URL or web UI inputs.
+      placeholder: |
+        1. Open https://barbuilder.dev/percentage/75?style=badge&color=red
+        2. Observe …
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behaviour
+      description: Include the SVG output if helpful, or a screenshot.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Where did this happen?
+      options:
+        - Worker (barbuilder.dev API)
+        - Web UI (barbuilder.dev configurator)
+        - Local development (pnpm dev)
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: Browser / client
+      description: e.g. "Chrome 142, macOS 15", "GitHub README rendering", "curl"
+    validations:
+      required: false
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Additional context
+      description: Logs, related issues, anything else.

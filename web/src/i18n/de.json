@@ -1,0 +1,77 @@
+{
+  "app": {
+    "title": "BarBuilder.dev",
+    "tagline": "Einbettbare SVG-Fortschrittsbalken"
+  },
+  "nav": {
+    "language": "Sprache"
+  },
+  "progressType": {
+    "title": "Fortschrittstyp",
+    "percentage": "Prozentsatz",
+    "xofy": "X von Y",
+    "icon": "Symbole (Sterne)"
+  },
+  "value": {
+    "title": "Wert",
+    "percentage": "Prozentsatz (0-100)",
+    "current": "Aktuell",
+    "currentHalf": "Aktuell (unterstützt Halb-Symbole: 2.5, 3.5, usw.)",
+    "total": "Gesamt"
+  },
+  "style": {
+    "title": "Stil",
+    "classic": "Klassisch",
+    "pill": "Pille",
+    "minimal": "Minimalistisch",
+    "badge": "Abzeichen",
+    "segments": "Segmente"
+  },
+  "shape": {
+    "title": "Symbolform",
+    "8bitHeart": "8-Bit-Herz",
+    "circle": "Kreis",
+    "heart": "Herz",
+    "star": "Stern"
+  },
+  "color": {
+    "title": "Farbe",
+    "label": "Farbe",
+    "helpText": "💡 Probieren Sie benannte Farben: red, blue, green, yellow, orange, purple, pink, cyan, lime, navy, teal, gold, coral, salmon, oder beliebige CSS-Farbnamen"
+  },
+  "label": {
+    "title": "Beschriftung",
+    "label": "Beschriftung",
+    "placeholder": "Automatisch generiert",
+    "charCount": "{current}/50"
+  },
+  "theme": {
+    "title": "Thema",
+    "light": "Hell",
+    "dark": "Dunkel"
+  },
+  "advanced": {
+    "title": "Erweiterte Optionen",
+    "width": "Breite (50-500px)",
+    "segments": "Segmente (2-20)"
+  },
+  "preview": {
+    "title": "Vorschau",
+    "lightBg": "Heller Hintergrund",
+    "darkBg": "Dunkler Hintergrund"
+  },
+  "output": {
+    "title": "Generierte URL",
+    "copyUrl": "URL kopieren",
+    "copyMarkdown": "Markdown kopieren",
+    "copyHtml": "HTML kopieren",
+    "copied": "Kopiert!"
+  },
+  "presets": {
+    "title": "Schnellvoreinstellungen",
+    "select": "Wähle eine Voreinstellung..."
+  },
+  "footer": {
+    "text": "© 2026 BarBuilder.dev • Spendenfinanziert • Open Source"
+  }
+}

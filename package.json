@@ -1,0 +1,58 @@
+{
+  "name": "barbuilder-dev",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Stateless HTTP microservice for generating cacheable SVG progress bars at the edge",
+  "scripts": {
+    "dev": "pnpm --filter @barbuilder/worker dev --ip 0.0.0.0",
+    "dev:web": "pnpm --filter web dev --host",
+    "build": "pnpm --filter @barbuilder/worker build && pnpm --filter web build",
+    "deploy": "pnpm --filter @barbuilder/worker deploy",
+    "test": "pnpm --filter @barbuilder/core test && pnpm --filter @barbuilder/api test",
+    "test:coverage": "pnpm --filter @barbuilder/core test:coverage && pnpm --filter @barbuilder/api test:coverage",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "typecheck": "tsc --noEmit -p packages/core/tsconfig.json && tsc --noEmit -p api/tsconfig.json && tsc --noEmit -p cloudflare-worker/tsconfig.json",
+    "format": "prettier --write ."
+  },
+  "keywords": [
+    "svg",
+    "progress-bar",
+    "bar-builder",
+    "microservice"
+  ],
+  "author": "Chris Gorvan <chris@barbuilder.dev>",
+  "engines": {
+    "node": ">=24"
+  },
+  "license": "MIT",
+  "homepage": "https://barbuilder.dev",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chris-gorvan/barbuilder.dev.git"
+  },
+  "bugs": {
+    "url": "https://github.com/chris-gorvan/barbuilder.dev/issues"
+  },
+  "pnpm": {
+    "overrides": {
+      "rollup": ">=4.59.0"
+    },
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp",
+      "workerd"
+    ]
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.60.0",
+    "eslint": "^10.4.0",
+    "globals": "^17.6.0",
+    "prettier": "^3.8.3",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.59.3"
+  }
+}

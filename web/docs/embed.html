@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- inject:head title="BarBuilder — Embedding Guide" description="Learn how to embed BarBuilder progress bars in GitHub READMEs, HTML pages, Notion, Confluence, and more." path="/docs/embed" -->
+  </head>
+  <body>
+    <!-- inject:header -->
+
+    <div class="docs-layout">
+      <!-- Sidebar -->
+      <aside class="docs-sidebar">
+        <div class="sidebar-inner">
+          <h3>Embedding Guide</h3>
+          <ul>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#github">GitHub README</a></li>
+            <li><a href="#html">HTML / Websites</a></li>
+            <li><a href="#markdown">Markdown</a></li>
+            <li><a href="#notion">Notion</a></li>
+            <li><a href="#confluence">Confluence</a></li>
+            <li><a href="#email">Email</a></li>
+            <li><a href="#responsive">Responsive Sizing</a></li>
+            <li><a href="#dynamic">Dynamic Values</a></li>
+            <li><a href="#dark-mode">Dark Mode</a></li>
+            <li><a href="#troubleshooting">Troubleshooting</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- Main content -->
+      <main class="docs-main">
+        <div class="docs-content">
+          <h1>Embedding Guide</h1>
+
+          <!-- How it works -->
+          <section id="how-it-works">
+            <h2>How It Works</h2>
+            <p>
+              Every BarBuilder progress bar is a standard SVG image served from
+              a URL. This means you can embed it anywhere that supports images
+              &mdash; just point an <code>&lt;img&gt;</code> tag or Markdown
+              image syntax at the URL.
+            </p>
+            <div class="callout">
+              <strong>Key concept:</strong> The URL <em>is</em> the
+              configuration. Change the URL parameters and the image changes
+              instantly. No JavaScript, no API keys, no build steps.
+            </div>
+            <p>
+              Start by building your bar with the
+              <a href="/builder">visual builder</a>, then copy the URL,
+              Markdown, or HTML snippet.
+            </p>
+          </section>
+
+          <!-- GitHub -->
+          <section id="github">
+            <h2>GitHub README</h2>
+            <p>
+              GitHub renders Markdown images natively, making BarBuilder a
+              perfect fit for README badges and status indicators.
+            </p>
+
+            <h3>Basic usage</h3>
+            <div class="code-block">
+              <pre><code>![Build](https://api.barbuilder.dev/percentage/100?style=badge&amp;color=4c1&amp;label=Build)
+![Coverage](https://api.barbuilder.dev/percentage/87?style=badge&amp;color=32cd32&amp;label=Coverage)
+![Rating](https://api.barbuilder.dev/icon/4.5/5?shape=star&amp;color=ffd700&amp;label=Rating)</code></pre>
+            </div>
+            <div class="example-preview">
+              <div
+                style="
+                  display: flex;
+                  gap: 12px;
+                  flex-wrap: wrap;
+                  align-items: center;
+                "
+              >
+                <img
+                  src=""
+                  data-src="/percentage/100?style=badge&color=4c1&label=Build"
+                  alt="Build"
+                  height="20"
+                />
+                <img
+                  src=""
+                  data-src="/percentage/87?style=badge&color=32cd32&label=Coverage"
+                  alt="Coverage"
+                  height="20"
+                />
+                <img
+                  src=""
+                  data-src="/icon/4.5/5?shape=star&color=ffd700&label=Rating"
+                  alt="Rating"
+                  height="20"
+                />
+              </div>
+            </div>
+
+            <h3>Linking to a page</h3>
+            <p>Wrap the image in a Markdown link to make it clickable:</p>
+            <div class="code-block">
+              <pre><code>[![Build Status](https://api.barbuilder.dev/percentage/100?style=badge&amp;color=4c1&amp;label=Build)](https://github.com/your/repo/actions)</code></pre>
+            </div>
+
+            <h3>Multiple badges in a row</h3>
+            <p>Place them on the same line with no blank lines between:</p>
+            <div class="code-block">
+              <pre><code>![Build](https://api.barbuilder.dev/percentage/100?style=badge&amp;color=4c1&amp;label=Build) ![Tests](https://api.barbuilder.dev/percentage/94?style=badge&amp;color=1e90ff&amp;label=Tests) ![Coverage](https://api.barbuilder.dev/percentage/87?style=badge&amp;color=32cd32&amp;label=Coverage)</code></pre>
+            </div>
+
+            <h3>GitHub caching</h3>
+            <p>
+              GitHub proxies external images through
+              <code>camo.githubusercontent.com</code>. This proxy caches images,
+              so changes to your bar may take a few minutes to appear. To force
+              a refresh:
+            </p>
+            <ul>
+              <li>
+                Append a cache-busting query parameter, e.g.
+                <code>&amp;v=2</code>
+              </li>
+              <li>
+                Or wait for GitHub's cache to expire (typically a few minutes)
+              </li>
+            </ul>
+          </section>
+
+          <!-- HTML -->
+          <section id="html">
+            <h2>HTML / Websites</h2>
+            <p>
+              Use a standard <code>&lt;img&gt;</code> tag. The SVG scales
+              cleanly to any size.
+            </p>
+
+            <h3>Basic embed</h3>
+            <div class="code-block">
+              <pre><code>&lt;img src="https://api.barbuilder.dev/percentage/75?style=pill&amp;color=dodgerblue&amp;label=Progress"
+     alt="75% progress"
+     width="200"&gt;</code></pre>
+            </div>
+            <div class="example-preview">
+              <img
+                src=""
+                data-src="/percentage/75?style=pill&color=dodgerblue&label=Progress"
+                alt="75% progress"
+                width="200"
+              />
+            </div>
+
+            <h3>With inline styles</h3>
+            <div class="code-block">
+              <pre><code>&lt;img src="https://api.barbuilder.dev/percentage/75?style=pill&amp;color=dodgerblue"
+     alt="75% progress"
+     style="width: 100%; max-width: 300px; height: auto;"&gt;</code></pre>
+            </div>
+
+            <h3>As a background image (CSS)</h3>
+            <p>
+              SVGs can also be used as CSS background images, though
+              <code>&lt;img&gt;</code> is usually simpler:
+            </p>
+            <div class="code-block">
+              <pre><code>.progress-badge {
+  width: 200px;
+  height: 20px;
+  background: url('https://api.barbuilder.dev/percentage/75?style=pill&amp;color=dodgerblue') no-repeat;
+  background-size: contain;
+}</code></pre>
+            </div>
+          </section>
+
+          <!-- Markdown -->
+          <section id="markdown">
+            <h2>Markdown</h2>
+            <p>
+              Standard Markdown image syntax works in any renderer (GitHub,
+              GitLab, Bitbucket, Docusaurus, MkDocs, etc.).
+            </p>
+            <div class="code-block">
+              <pre><code>![Progress](https://api.barbuilder.dev/percentage/75?style=pill&amp;color=dodgerblue&amp;label=Progress)</code></pre>
+            </div>
+
+            <h3>With a title tooltip</h3>
+            <div class="code-block">
+              <pre><code>![Progress](https://api.barbuilder.dev/percentage/75?style=pill&amp;color=dodgerblue "75% complete")</code></pre>
+            </div>
+
+            <h3>Reference-style (cleaner for multiple bars)</h3>
+            <div class="code-block">
+              <pre><code>![Build Status][build-badge]
+![Test Coverage][coverage-badge]
+
+[build-badge]: https://api.barbuilder.dev/percentage/100?style=badge&amp;color=4c1&amp;label=Build
+[coverage-badge]: https://api.barbuilder.dev/percentage/87?style=badge&amp;color=32cd32&amp;label=Coverage</code></pre>
+            </div>
+          </section>
+
+          <!-- Notion -->
+          <section id="notion">
+            <h2>Notion</h2>
+            <p>
+              Notion supports external image embeds. There are two approaches:
+            </p>
+
+            <h3>Image block</h3>
+            <ol>
+              <li>Type <code>/image</code> to create an image block</li>
+              <li>Select <strong>Embed link</strong></li>
+              <li>Paste the BarBuilder URL</li>
+            </ol>
+
+            <h3>Inline embed</h3>
+            <ol>
+              <li>Type <code>/embed</code></li>
+              <li>Paste the BarBuilder URL</li>
+              <li>Notion will render the SVG inline</li>
+            </ol>
+
+            <div class="callout">
+              <strong>Tip:</strong> Notion caches external images aggressively.
+              If you update the URL parameters, you may need to remove and
+              re-add the block to see changes.
+            </div>
+          </section>
+
+          <!-- Confluence -->
+          <section id="confluence">
+            <h2>Confluence</h2>
+            <p>
+              Atlassian Confluence supports external images in both Cloud and
+              Server editions.
+            </p>
+
+            <h3>Confluence Cloud</h3>
+            <ol>
+              <li>Type <code>/</code> to open the insert menu</li>
+              <li>
+                Select <strong>External image</strong> (or
+                <strong>Image</strong> &rarr; <strong>Web URL</strong>)
+              </li>
+              <li>Paste the BarBuilder URL</li>
+            </ol>
+
+            <h3>Confluence wiki markup</h3>
+            <div class="code-block">
+              <pre><code>!https://api.barbuilder.dev/percentage/75?style=pill&amp;color=dodgerblue&amp;label=Progress!</code></pre>
+            </div>
+          </section>
+
+          <!-- Email -->
+          <section id="email">
+            <h2>Email</h2>
+            <p>
+              Most email clients support external images via
+              <code>&lt;img&gt;</code> tags.
+            </p>
+            <div class="code-block">
+              <pre><code>&lt;img src="https://api.barbuilder.dev/percentage/75?style=pill&amp;color=dodgerblue&amp;label=Progress"
+     alt="75% progress"
+     width="200"
+     style="display:block;"&gt;</code></pre>
+            </div>
+
+            <div class="callout">
+              <strong>Note:</strong> Some email clients block external images by
+              default. Always include a meaningful <code>alt</code> attribute as
+              a fallback. Outlook in particular may require a fixed
+              <code>width</code> attribute rather than CSS styling.
+            </div>
+          </section>
+
+          <!-- Responsive -->
+          <section id="responsive">
+            <h2>Responsive Sizing</h2>
+            <p>
+              BarBuilder SVGs scale cleanly. Use CSS to make them responsive:
+            </p>
+
+            <h3>Full width (capped)</h3>
+            <div class="code-block">
+              <pre><code>&lt;img src="https://api.barbuilder.dev/percentage/75?style=pill&amp;color=dodgerblue&amp;width=400"
+     alt="Progress"
+     style="width: 100%; max-width: 400px; height: auto;"&gt;</code></pre>
+            </div>
+
+            <h3>Using the width parameter</h3>
+            <p>
+              The <code>width</code> query parameter controls the SVG's
+              <em>internal</em> dimensions (50&ndash;500px). The HTML
+              <code>width</code> attribute or CSS controls how large it appears
+              on screen. For the sharpest result, match the two:
+            </p>
+            <div class="code-block">
+              <pre><code>&lt;!-- SVG is 300px wide internally, displayed at 300px --&gt;
+&lt;img src="https://api.barbuilder.dev/percentage/75?width=300"
+     width="300"&gt;</code></pre>
+            </div>
+            <p>
+              You can also display a wider SVG at a smaller size &mdash; it will
+              scale down crisply because it's a vector image.
+            </p>
+          </section>
+
+          <!-- Dynamic -->
+          <section id="dynamic">
+            <h2>Dynamic Values</h2>
+            <p>
+              Because the value is part of the URL, you can generate URLs
+              dynamically in any language or framework.
+            </p>
+
+            <h3>JavaScript</h3>
+            <div class="code-block">
+              <pre><code>const value = 75;
+const url = `https://api.barbuilder.dev/percentage/${value}?style=pill&amp;color=dodgerblue`;
+document.getElementById('progress').src = url;</code></pre>
+            </div>
+
+            <h3>Python (in a Jupyter notebook or README generator)</h3>
+            <div class="code-block">
+              <pre><code>value = 75
+url = f"https://api.barbuilder.dev/percentage/{value}?style=pill&amp;color=dodgerblue"
+markdown = f"![Progress]({url})"</code></pre>
+            </div>
+
+            <h3>CI/CD pipelines</h3>
+            <p>Update your README badge URL as part of your build process:</p>
+            <div class="code-block">
+              <pre><code># Bash — update a badge in README after running tests
+COVERAGE=$(cat coverage.txt)
+sed -i "s|/percentage/[0-9]*|/percentage/${COVERAGE}|" README.md</code></pre>
+            </div>
+
+            <div class="callout">
+              <strong>Remember:</strong> BarBuilder URLs are cached for 1 year.
+              If you change the value in the URL, it's a <em>new</em> URL and
+              will be generated fresh. The old URL continues serving the old
+              value from cache.
+            </div>
+          </section>
+
+          <!-- Dark mode -->
+          <section id="dark-mode">
+            <h2>Dark Mode</h2>
+            <p>
+              Use <code>?theme=dark</code> to generate bars with dark-friendly
+              colours. This is ideal for dark-mode documentation, dashboards,
+              and READMEs.
+            </p>
+
+            <div class="example-block">
+              <div class="code-block">
+                <pre><code>![Progress](https://api.barbuilder.dev/percentage/65?style=pill&amp;color=4c71ff&amp;theme=dark&amp;label=Progress)</code></pre>
+              </div>
+              <div
+                class="example-preview"
+                style="background: #1a1a2e; border-radius: 6px; padding: 16px"
+              >
+                <img
+                  src=""
+                  data-src="/percentage/65?style=pill&color=4c71ff&theme=dark&label=Progress"
+                  alt="Dark theme bar"
+                  width="200"
+                />
+              </div>
+            </div>
+
+            <h3>Serving different themes with CSS</h3>
+            <p>
+              Use the <code>&lt;picture&gt;</code> element to show different
+              bars based on the user's colour scheme preference:
+            </p>
+            <div class="code-block">
+              <pre><code>&lt;picture&gt;
+  &lt;source media="(prefers-color-scheme: dark)"
+          srcset="https://api.barbuilder.dev/percentage/75?theme=dark&amp;color=4c71ff"&gt;
+  &lt;img src="https://api.barbuilder.dev/percentage/75?color=44cc11"
+       alt="75% progress"
+       width="200"&gt;
+&lt;/picture&gt;</code></pre>
+            </div>
+
+            <h3>GitHub dark mode</h3>
+            <p>
+              GitHub supports the <code>&lt;picture&gt;</code> element in
+              READMEs, so you can serve the right theme automatically:
+            </p>
+            <div class="code-block">
+              <pre><code>&lt;picture&gt;
+  &lt;source media="(prefers-color-scheme: dark)"
+          srcset="https://api.barbuilder.dev/percentage/75?style=badge&amp;color=4c71ff&amp;theme=dark&amp;label=Build"&gt;
+  &lt;img src="https://api.barbuilder.dev/percentage/75?style=badge&amp;color=4c1&amp;label=Build"
+       alt="Build status"&gt;
+&lt;/picture&gt;</code></pre>
+            </div>
+          </section>
+
+          <!-- Troubleshooting -->
+          <section id="troubleshooting">
+            <h2>Troubleshooting</h2>
+
+            <h3>Image not updating after URL change</h3>
+            <p>
+              BarBuilder caches successful responses for 1 year. Each unique URL
+              is a separate cache entry, so changing any parameter creates a
+              fresh image. If you're seeing a stale image:
+            </p>
+            <ul>
+              <li>
+                <strong>Browser cache:</strong> Hard-refresh the page
+                (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd>)
+              </li>
+              <li>
+                <strong>GitHub/Notion cache:</strong> These platforms proxy
+                images through their own CDN. Wait a few minutes or add a
+                cache-busting parameter (e.g. <code>&amp;v=2</code>)
+              </li>
+            </ul>
+
+            <h3>Image appears as a broken icon</h3>
+            <ul>
+              <li>
+                Check the URL is correct &mdash; try opening it directly in a
+                browser
+              </li>
+              <li>Ensure the embedding platform allows external images</li>
+              <li>Some corporate firewalls block external image requests</li>
+            </ul>
+
+            <h3>Image looks blurry</h3>
+            <p>
+              BarBuilder generates vector SVGs that are resolution-independent.
+              If the image looks blurry, it's likely being rasterised at too
+              small a size. Try:
+            </p>
+            <ul>
+              <li>Increasing the <code>width</code> query parameter</li>
+              <li>Ensuring the HTML display size matches the SVG width</li>
+              <li>
+                Checking that the embedding platform supports SVG (most do)
+              </li>
+            </ul>
+
+            <h3>Red error bar instead of my progress bar</h3>
+            <p>
+              BarBuilder returns errors as red SVG images with a message
+              describing the problem. Open the URL directly in a browser to read
+              the error message. Common causes:
+            </p>
+            <ul>
+              <li>Percentage value outside 0&ndash;100</li>
+              <li>Invalid colour name or hex value</li>
+              <li>Unknown style name</li>
+            </ul>
+            <p>
+              See the <a href="/api-docs#errors">API error reference</a> for the
+              full list.
+            </p>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <!-- Footer will be injected -->
+    <!-- inject:footer -->
+
+    <script>
+      (function () {
+        const API_BASE =
+          window.location.hostname === "localhost"
+            ? "http://localhost:8787"
+            : "https://barbuilder.dev";
+
+        document.querySelectorAll("img[data-src]").forEach((img) => {
+          img.src = API_BASE + img.dataset.src;
+        });
+      })();
+    </script>
+  </body>
+</html>

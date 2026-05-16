@@ -1,0 +1,77 @@
+{
+  "app": {
+    "title": "BarBuilder.dev",
+    "tagline": "Barras de Progreso SVG Integrables"
+  },
+  "nav": {
+    "language": "Idioma"
+  },
+  "progressType": {
+    "title": "Tipo de Progreso",
+    "percentage": "Porcentaje",
+    "xofy": "X de Y",
+    "icon": "Íconos (Estrellas)"
+  },
+  "value": {
+    "title": "Valor",
+    "percentage": "Porcentaje (0-100)",
+    "current": "Actual",
+    "currentHalf": "Actual (admite medios íconos: 2.5, 3.5, etc.)",
+    "total": "Total"
+  },
+  "style": {
+    "title": "Estilo",
+    "classic": "Clásico",
+    "pill": "Píldora",
+    "minimal": "Minimalista",
+    "badge": "Insignia",
+    "segments": "Segmentos"
+  },
+  "shape": {
+    "title": "Forma del Ícono",
+    "8bitHeart": "Corazón 8-bit",
+    "circle": "Círculo",
+    "heart": "Corazón",
+    "star": "Estrella"
+  },
+  "color": {
+    "title": "Color",
+    "label": "Color",
+    "helpText": "💡 Prueba colores con nombre: red, blue, green, yellow, orange, purple, pink, cyan, lime, navy, teal, gold, coral, salmon, o cualquier nombre de color CSS"
+  },
+  "label": {
+    "title": "Etiqueta",
+    "label": "Etiqueta",
+    "placeholder": "Generada automáticamente",
+    "charCount": "{current}/50"
+  },
+  "theme": {
+    "title": "Tema",
+    "light": "Claro",
+    "dark": "Oscuro"
+  },
+  "advanced": {
+    "title": "Opciones Avanzadas",
+    "width": "Ancho (50-500px)",
+    "segments": "Segmentos (2-20)"
+  },
+  "preview": {
+    "title": "Vista Previa",
+    "lightBg": "Fondo Claro",
+    "darkBg": "Fondo Oscuro"
+  },
+  "output": {
+    "title": "URL Generada",
+    "copyUrl": "Copiar URL",
+    "copyMarkdown": "Copiar Markdown",
+    "copyHtml": "Copiar HTML",
+    "copied": "¡Copiado!"
+  },
+  "presets": {
+    "title": "Ajustes Preestablecidos",
+    "select": "Selecciona un ajuste..."
+  },
+  "footer": {
+    "text": "© 2026 BarBuilder.dev • Financiado por donaciones • Código Abierto"
+  }
+}

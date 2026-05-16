@@ -1,0 +1,33 @@
+name: Feature request
+description: Suggest an enhancement or new capability
+labels: ["enhancement", "triage"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What are you trying to do that the current version doesn't support?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: What would you like to see? URL shape, parameter name, expected output, etc.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Existing parameters or workarounds you've already tried.
+
+  - type: textarea
+    id: caching
+    attributes:
+      label: Caching impact
+      description: |
+        SVG output is immutable-cached for 1 year and invalidated by Surrogate-Key.
+        If your proposal changes existing output for an unchanged URL, note it here.

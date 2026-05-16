@@ -1,0 +1,77 @@
+{
+  "app": {
+    "title": "BarBuilder.dev",
+    "tagline": "Embeddable SVG Progress Bars"
+  },
+  "nav": {
+    "language": "Language"
+  },
+  "progressType": {
+    "title": "Progress Type",
+    "percentage": "Percentage",
+    "xofy": "X of Y",
+    "icon": "Icon (Stars)"
+  },
+  "value": {
+    "title": "Value",
+    "percentage": "Percentage (0-100)",
+    "current": "Current",
+    "currentHalf": "Current (supports half-icons: 2.5, 3.5, etc.)",
+    "total": "Total"
+  },
+  "style": {
+    "title": "Style",
+    "classic": "Classic",
+    "pill": "Pill",
+    "minimal": "Minimal",
+    "badge": "Badge",
+    "segments": "Segments"
+  },
+  "shape": {
+    "title": "Icon Shape",
+    "8bitHeart": "8-bit Heart",
+    "circle": "Circle",
+    "heart": "Heart",
+    "star": "Star"
+  },
+  "colour": {
+    "title": "Colour",
+    "label": "Colour",
+    "helpText": "💡 Try named colours: red, blue, green, yellow, orange, purple, pink, cyan, lime, navy, teal, gold, coral, salmon, or any CSS colour name"
+  },
+  "label": {
+    "title": "Label",
+    "label": "Label",
+    "placeholder": "Auto-generated",
+    "charCount": "{current}/50"
+  },
+  "theme": {
+    "title": "Theme",
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "advanced": {
+    "title": "Advanced Options",
+    "width": "Width (50-500px)",
+    "segments": "Segments (2-20)"
+  },
+  "preview": {
+    "title": "Preview",
+    "lightBg": "Light BG",
+    "darkBg": "Dark BG"
+  },
+  "output": {
+    "title": "Generated URL",
+    "copyUrl": "Copy URL",
+    "copyMarkdown": "Copy Markdown",
+    "copyHtml": "Copy HTML",
+    "copied": "Copied!"
+  },
+  "presets": {
+    "title": "Quick Presets",
+    "select": "Select a preset..."
+  },
+  "footer": {
+    "text": "© 2026 BarBuilder.dev • Donation-funded • Open Source"
+  }
+}

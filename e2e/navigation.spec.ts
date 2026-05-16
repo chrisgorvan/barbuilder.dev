@@ -29,7 +29,10 @@ test.describe("Navigation", () => {
 
   test("logo link navigates to homepage", async ({ page }) => {
     await page.goto("/builder");
-    await page.getByRole("navigation").getByRole("link", { name: "BarBuilder" }).click();
+    await page
+      .getByRole("navigation")
+      .getByRole("link", { name: "BarBuilder" })
+      .click();
     await expect(page).toHaveURL("/");
   });
 
@@ -91,7 +94,10 @@ test.describe("Footer", () => {
     ).toHaveAttribute("href", "/terms");
     await expect(
       footer.getByRole("link", { name: "Changelog" }),
-    ).toHaveAttribute("href", "/changelog");
+    ).toHaveAttribute(
+      "href",
+      "https://github.com/chrisgorvan/barbuilder.dev/releases",
+    );
   });
 
   test("displays copyright notice", async ({ page }) => {

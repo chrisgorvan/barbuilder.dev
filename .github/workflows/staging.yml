@@ -26,7 +26,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Deploy to Cloudflare Workers (staging)
-        uses: cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           workingDirectory: "cloudflare-worker"
@@ -58,7 +58,7 @@ jobs:
         run: pnpm --filter @barbuilder/web build
 
       - name: Deploy to Cloudflare Pages (staging)
-        uses: cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           command: pages deploy web/dist --project-name=barbuilder-web-staging --branch=staging

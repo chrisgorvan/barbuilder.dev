@@ -4,7 +4,7 @@ This project uses GitHub Actions to automatically deploy to Cloudflare Workers o
 
 ## GitHub Secrets Configuration
 
-You need to configure the following secret in your GitHub repository:
+You need to configure the following secrets in your GitHub repository:
 
 ### `CLOUDFLARE_API_TOKEN`
 
@@ -13,20 +13,26 @@ You need to configure the following secret in your GitHub repository:
 3. Use the **Edit Cloudflare Workers** template
 4. Configure permissions:
    - **Account** → Cloudflare Workers → Edit
+   - **Account** → Cloudflare Pages → Edit
    - **Zone** → Workers Routes → Edit (if using routes)
 5. Set **Account Resources** to include your account
 6. Set **Zone Resources** to include `barbuilder.dev` (if using custom domain)
 7. Click **Continue to summary** → **Create Token**
 8. Copy the token (you won't see it again!)
 
-### Add Secret to GitHub
+### `CLOUDFLARE_ACCOUNT_ID`
+
+Required for the Cloudflare Pages deploy step (the Pages API needs an explicit account ID, unlike Workers which derives it from `zone_name` in `wrangler.toml`).
+
+1. Open any zone in the [Cloudflare Dashboard](https://dash.cloudflare.com/)
+2. Copy the **Account ID** from the right sidebar (32-char hex string)
+
+### Add Secrets to GitHub
 
 1. Go to your GitHub repository
 2. Navigate to **Settings** → **Secrets and variables** → **Actions**
 3. Click **New repository secret**
-4. Name: `CLOUDFLARE_API_TOKEN`
-5. Value: Paste your Cloudflare API token
-6. Click **Add secret**
+4. Add both `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`
 
 ## Deployment Workflow
 

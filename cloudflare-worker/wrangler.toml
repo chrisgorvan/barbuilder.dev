@@ -1,0 +1,16 @@
+name = "barbuilder-worker"
+main = "src/index.ts"
+compatibility_date = "2026-01-01"
+minify = true
+
+[env.production]
+name = "barbuilder-worker"
+routes = [
+  { pattern = "api.barbuilder.dev/*", zone_name = "barbuilder.dev" }
+]
+
+[env.staging]
+name = "barbuilder-worker-staging"
+routes = [
+  { pattern = "api.staging.barbuilder.dev/*", zone_name = "barbuilder.dev" }
+]

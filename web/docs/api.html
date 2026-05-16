@@ -1,0 +1,886 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- inject:head title="BarBuilder — API Documentation" description="Complete API reference for BarBuilder. Generate SVG progress bars via simple HTTP GET requests with customisable styles, colours, and themes." path="/docs/api" -->
+  </head>
+  <body>
+    <!-- inject:header -->
+
+    <div class="docs-layout">
+      <!-- Sidebar -->
+      <aside class="docs-sidebar">
+        <div class="sidebar-inner">
+          <h3>API Reference</h3>
+          <ul>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#base-url">Base URL</a></li>
+            <li>
+              <a href="#endpoints">Endpoints</a>
+              <ul>
+                <li><a href="#percentage">Percentage</a></li>
+                <li><a href="#xofy">X of Y</a></li>
+                <li><a href="#icon">Icon</a></li>
+                <li><a href="#health">Health Check</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#parameters">Query Parameters</a>
+              <ul>
+                <li><a href="#param-style">style</a></li>
+                <li><a href="#param-color">color</a></li>
+                <li><a href="#param-gradient">Gradients</a></li>
+                <li><a href="#param-threshold">Thresholds</a></li>
+                <li><a href="#param-bgcolor">backgroundColor</a></li>
+                <li><a href="#param-theme">theme</a></li>
+                <li><a href="#param-label">label</a></li>
+                <li><a href="#param-width">width</a></li>
+                <li><a href="#param-segments">segments</a></li>
+                <li><a href="#param-shape">shape</a></li>
+              </ul>
+            </li>
+            <li><a href="#colours">Named Colours</a></li>
+            <li><a href="#caching">Caching</a></li>
+            <li><a href="#errors">Error Handling</a></li>
+            <li><a href="#examples">Examples</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- Main content -->
+      <main class="docs-main">
+        <div class="docs-content">
+          <h1>API Documentation</h1>
+
+          <!-- Overview -->
+          <section id="overview">
+            <h2>Overview</h2>
+            <p>
+              BarBuilder generates SVG progress bars via simple HTTP GET
+              requests. Every parameter is passed as a URL path segment or query
+              string &mdash; no API keys, no authentication, no POST bodies.
+            </p>
+            <p>
+              Responses are SVG images (<code>image/svg+xml</code>) that can be
+              embedded anywhere: GitHub READMEs, documentation, dashboards,
+              emails, or any HTML page.
+            </p>
+          </section>
+
+          <!-- Base URL -->
+          <section id="base-url">
+            <h2>Base URL</h2>
+            <div class="code-block">
+              <code>https://api.barbuilder.dev</code>
+            </div>
+            <p>
+              All endpoints are served from the edge with global sub-50ms
+              latency.
+            </p>
+          </section>
+
+          <!-- Endpoints -->
+          <section id="endpoints">
+            <h2>Endpoints</h2>
+
+            <article id="percentage" class="endpoint">
+              <h3>
+                <span class="method">GET</span> /percentage/<span class="param"
+                  >{value}</span
+                >
+              </h3>
+              <p>Generates a progress bar for a percentage value.</p>
+              <table class="param-table">
+                <thead>
+                  <tr>
+                    <th>Path Parameter</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>value</code></td>
+                    <td>number</td>
+                    <td>
+                      Percentage from <code>0</code> to
+                      <code>100</code> (decimals allowed)
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="example-block">
+                <div class="example-label">Example</div>
+                <div class="code-block">
+                  <code
+                    >https://api.barbuilder.dev/percentage/75?style=pill&amp;color=dodgerblue&amp;label=Progress</code
+                  >
+                </div>
+                <div class="example-preview">
+                  <img
+                    src=""
+                    data-src="/percentage/75?style=pill&color=dodgerblue&label=Progress"
+                    alt="75% pill progress bar"
+                    height="20"
+                  />
+                </div>
+              </div>
+            </article>
+
+            <article id="xofy" class="endpoint">
+              <h3>
+                <span class="method">GET</span> /xofy/<span class="param"
+                  >{current}</span
+                >/<span class="param">{total}</span>
+              </h3>
+              <p>Generates a progress bar showing current out of total.</p>
+              <table class="param-table">
+                <thead>
+                  <tr>
+                    <th>Path Parameter</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>current</code></td>
+                    <td>integer</td>
+                    <td><code>0</code> to <code>999999</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>total</code></td>
+                    <td>integer</td>
+                    <td><code>1</code> to <code>999999</code></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="example-block">
+                <div class="example-label">Example</div>
+                <div class="code-block">
+                  <code
+                    >https://api.barbuilder.dev/xofy/7/10?style=segments&amp;color=1e90ff&amp;label=Tasks</code
+                  >
+                </div>
+                <div class="example-preview">
+                  <img
+                    src=""
+                    data-src="/xofy/7/10?style=segments&color=1e90ff&label=Tasks"
+                    alt="7 of 10 segments"
+                    height="20"
+                  />
+                </div>
+              </div>
+            </article>
+
+            <article id="icon" class="endpoint">
+              <h3>
+                <span class="method">GET</span> /icon/<span class="param"
+                  >{current}</span
+                >/<span class="param">{total}</span>
+              </h3>
+              <p>
+                Generates an icon-based progress indicator (e.g. star ratings).
+                Supports half-step rendering for fractional values.
+              </p>
+              <table class="param-table">
+                <thead>
+                  <tr>
+                    <th>Path Parameter</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>current</code></td>
+                    <td>number</td>
+                    <td>
+                      <code>0</code> to <code>50</code> (decimals allowed for
+                      half-steps)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>total</code></td>
+                    <td>integer</td>
+                    <td>
+                      <code>1</code> to <code>50</code> (default:
+                      <code>5</code>)
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="example-block">
+                <div class="example-label">Example</div>
+                <div class="code-block">
+                  <code
+                    >https://api.barbuilder.dev/icon/3.5/5?shape=star&amp;color=ffd700&amp;label=Rating</code
+                  >
+                </div>
+                <div class="example-preview">
+                  <img
+                    src=""
+                    data-src="/icon/3.5/5?shape=star&color=ffd700&label=Rating"
+                    alt="3.5 out of 5 stars"
+                    height="20"
+                  />
+                </div>
+              </div>
+            </article>
+          </section>
+
+          <!-- Query Parameters -->
+          <section id="parameters">
+            <h2>Query Parameters</h2>
+            <p>
+              All parameters are optional. Unknown parameters are silently
+              ignored.
+            </p>
+
+            <table class="param-table full-width">
+              <thead>
+                <tr>
+                  <th>Parameter</th>
+                  <th>Type</th>
+                  <th>Default</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>style</code></td>
+                  <td>string</td>
+                  <td><code>classic</code></td>
+                  <td>
+                    Bar style: <code>classic</code>, <code>pill</code>,
+                    <code>minimal</code>, <code>badge</code>,
+                    <code>segments</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>color</code></td>
+                  <td>string</td>
+                  <td><code>44cc11</code></td>
+                  <td>
+                    Progress colour &mdash; hex (no <code>#</code>) or
+                    <a href="#colours">named colour</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>colorFrom</code></td>
+                  <td>string</td>
+                  <td>&mdash;</td>
+                  <td>Gradient start colour</td>
+                </tr>
+                <tr>
+                  <td><code>colorTo</code></td>
+                  <td>string</td>
+                  <td>&mdash;</td>
+                  <td>Gradient end colour</td>
+                </tr>
+                <tr>
+                  <td><code>colorSteps</code></td>
+                  <td>string</td>
+                  <td>&mdash;</td>
+                  <td>
+                    Threshold colours: <code>33:red,66:gold,100:green</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>backgroundColor</code></td>
+                  <td>string</td>
+                  <td>theme-based</td>
+                  <td>Unfilled area colour</td>
+                </tr>
+                <tr>
+                  <td><code>theme</code></td>
+                  <td>string</td>
+                  <td><code>light</code></td>
+                  <td><code>light</code> or <code>dark</code></td>
+                </tr>
+                <tr>
+                  <td><code>label</code></td>
+                  <td>string</td>
+                  <td>auto</td>
+                  <td>Text label (max 50 characters)</td>
+                </tr>
+                <tr>
+                  <td><code>width</code></td>
+                  <td>integer</td>
+                  <td><code>200</code></td>
+                  <td>
+                    Width in pixels (<code>50</code>&ndash;<code>500</code>)
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>segments</code></td>
+                  <td>integer</td>
+                  <td>auto</td>
+                  <td>
+                    Segment count for <code>segments</code> style
+                    (<code>2</code>&ndash;<code>20</code>)
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>shape</code></td>
+                  <td>string</td>
+                  <td><code>star</code></td>
+                  <td>
+                    Icon shape: <code>star</code>, <code>heart</code>,
+                    <code>circle</code>, <code>8bit-heart</code>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3 id="param-style">style</h3>
+            <p>Controls the visual appearance of the progress bar.</p>
+            <div class="style-grid">
+              <div class="style-demo">
+                <div class="style-demo-label">classic</div>
+                <img
+                  src=""
+                  data-src="/percentage/75?style=classic&color=44cc11&label=Progress"
+                  alt="classic style"
+                  height="18"
+                />
+                <p>Traditional bar with label section</p>
+              </div>
+              <div class="style-demo">
+                <div class="style-demo-label">pill</div>
+                <img
+                  src=""
+                  data-src="/percentage/75?style=pill&color=44cc11&label=Progress"
+                  alt="pill style"
+                  height="18"
+                />
+                <p>Rounded ends, modern look</p>
+              </div>
+              <div class="style-demo">
+                <div class="style-demo-label">minimal</div>
+                <img
+                  src=""
+                  data-src="/percentage/75?style=minimal&color=44cc11&label=Progress"
+                  alt="minimal style"
+                  height="18"
+                />
+                <p>Thin bar, no labels</p>
+              </div>
+              <div class="style-demo">
+                <div class="style-demo-label">badge</div>
+                <img
+                  src=""
+                  data-src="/percentage/75?style=badge&color=44cc11&label=Build"
+                  alt="badge style"
+                  height="18"
+                />
+                <p>Badge style with auto-value</p>
+              </div>
+              <div class="style-demo">
+                <div class="style-demo-label">segments</div>
+                <img
+                  src=""
+                  data-src="/xofy/7/10?style=segments&color=44cc11&label=Tasks"
+                  alt="segments style"
+                  height="18"
+                />
+                <p>Discrete blocks</p>
+              </div>
+            </div>
+
+            <h3 id="param-color">color</h3>
+            <p>
+              Accepts a hex value (without <code>#</code>) or a
+              <a href="#colours">named CSS colour</a>. Both 3-digit and 6-digit
+              hex are supported.
+            </p>
+            <div class="code-block">
+              <code
+                >?color=ff6347 # 6-digit hex ?color=4c1 # 3-digit hex (expands
+                to #44cc11) ?color=tomato # CSS named colour
+                (case-insensitive)</code
+              >
+            </div>
+
+            <h3 id="param-gradient">Gradients (colorFrom &amp; colorTo)</h3>
+            <p>
+              Set both <code>colorFrom</code> and <code>colorTo</code> to create
+              a left-to-right gradient fill.
+            </p>
+            <div class="example-block">
+              <div class="code-block">
+                <code>?colorFrom=667eea&amp;colorTo=764ba2</code>
+              </div>
+              <div class="example-preview">
+                <img
+                  src=""
+                  data-src="/percentage/75?style=pill&colorFrom=667eea&colorTo=764ba2&label=Gradient"
+                  alt="gradient example"
+                  height="20"
+                />
+              </div>
+            </div>
+
+            <h3 id="param-threshold">Threshold Colours (colorSteps)</h3>
+            <p>
+              Define colour breakpoints that change based on the progress value.
+              Format: <code>threshold:colour,threshold:colour,...</code>
+            </p>
+            <div class="example-block">
+              <div class="code-block">
+                <code>?colorSteps=33:crimson,66:gold,100:limegreen</code>
+              </div>
+              <div class="example-preview">
+                <img
+                  src=""
+                  data-src="/percentage/80?style=pill&colorSteps=33:crimson,66:gold,100:limegreen&label=Health"
+                  alt="threshold example"
+                  height="20"
+                />
+              </div>
+            </div>
+
+            <h3 id="param-bgcolor">backgroundColor</h3>
+            <p>
+              Sets the colour of the unfilled area. Defaults depend on theme:
+            </p>
+            <ul>
+              <li><strong>Light theme:</strong> <code>#e0e0e0</code></li>
+              <li><strong>Dark theme:</strong> <code>#333333</code></li>
+            </ul>
+
+            <h3 id="param-theme">theme</h3>
+            <p>
+              Controls default colours for backgrounds, borders, and labels.
+            </p>
+            <table class="param-table">
+              <thead>
+                <tr>
+                  <th>Theme</th>
+                  <th>Background</th>
+                  <th>Label BG</th>
+                  <th>Label Text</th>
+                  <th>Progress Colour</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>light</code></td>
+                  <td><code>#e0e0e0</code></td>
+                  <td><code>#555555</code></td>
+                  <td><code>#ffffff</code></td>
+                  <td><code>#44cc11</code></td>
+                </tr>
+                <tr>
+                  <td><code>dark</code></td>
+                  <td><code>#333333</code></td>
+                  <td><code>#1a1a1a</code></td>
+                  <td><code>#e0e0e0</code></td>
+                  <td><code>#55dd55</code></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3 id="param-label">label</h3>
+            <p>
+              Custom text label. Maximum 50 characters (truncated with
+              <code>...</code> if exceeded). If omitted, a label is
+              auto-generated based on the progress type.
+            </p>
+
+            <h3 id="param-width">width</h3>
+            <p>
+              Width in pixels, between <code>50</code> and <code>500</code>.
+              Default: <code>200</code>.
+            </p>
+
+            <h3 id="param-segments">segments</h3>
+            <p>
+              Number of discrete blocks when using the
+              <code>segments</code> style. Range:
+              <code>2</code>&ndash;<code>20</code>. For X-of-Y progress,
+              defaults to the total value (clamped to 2&ndash;20).
+            </p>
+
+            <h3 id="param-shape">shape</h3>
+            <p>
+              Icon shape for the <code>/icon</code> endpoint. All shapes support
+              half-step rendering for fractional values.
+            </p>
+            <table class="param-table">
+              <thead>
+                <tr>
+                  <th>Shape</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>star</code></td>
+                  <td>Five-pointed star (default)</td>
+                </tr>
+                <tr>
+                  <td><code>heart</code></td>
+                  <td>Classic heart shape</td>
+                </tr>
+                <tr>
+                  <td><code>circle</code></td>
+                  <td>Filled circle</td>
+                </tr>
+                <tr>
+                  <td><code>8bit-heart</code></td>
+                  <td>Retro pixel art heart with black outline</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+
+          <!-- Named Colours -->
+          <section id="colours">
+            <h2>Named Colours</h2>
+            <p>
+              The following CSS colour names are supported (case-insensitive).
+              You can also use any 3-digit or 6-digit hex value.
+            </p>
+
+            <h4>Reds</h4>
+            <div class="colour-grid">
+              <span class="colour-swatch" style="--c: #ff0000">red</span>
+              <span class="colour-swatch" style="--c: #dc143c">crimson</span>
+              <span class="colour-swatch" style="--c: #ff6347">tomato</span>
+              <span class="colour-swatch" style="--c: #ff7f50">coral</span>
+              <span class="colour-swatch" style="--c: #cd5c5c">indianred</span>
+              <span class="colour-swatch" style="--c: #fa8072">salmon</span>
+              <span class="colour-swatch" style="--c: #e9967a">darksalmon</span>
+              <span class="colour-swatch" style="--c: #f08080">lightcoral</span>
+              <span class="colour-swatch" style="--c: #ffa07a"
+                >lightsalmon</span
+              >
+            </div>
+
+            <h4>Oranges</h4>
+            <div class="colour-grid">
+              <span class="colour-swatch" style="--c: #ffa500">orange</span>
+              <span class="colour-swatch" style="--c: #ff4500">orangered</span>
+              <span class="colour-swatch" style="--c: #ff8c00">darkorange</span>
+            </div>
+
+            <h4>Yellows</h4>
+            <div class="colour-grid">
+              <span class="colour-swatch" style="--c: #ffff00">yellow</span>
+              <span class="colour-swatch" style="--c: #ffd700">gold</span>
+              <span class="colour-swatch" style="--c: #f0e68c">khaki</span>
+            </div>
+
+            <h4>Greens</h4>
+            <div class="colour-grid">
+              <span class="colour-swatch" style="--c: #008000">green</span>
+              <span class="colour-swatch" style="--c: #00ff00">lime</span>
+              <span class="colour-swatch" style="--c: #32cd32">limegreen</span>
+              <span class="colour-swatch" style="--c: #3cb371"
+                >mediumseagreen</span
+              >
+              <span class="colour-swatch" style="--c: #00ff7f"
+                >springgreen</span
+              >
+              <span class="colour-swatch" style="--c: #2e8b57">seagreen</span>
+              <span class="colour-swatch" style="--c: #228b22"
+                >forestgreen</span
+              >
+              <span class="colour-swatch" style="--c: #006400">darkgreen</span>
+              <span class="colour-swatch" style="--c: #808000">olive</span>
+              <span class="colour-swatch" style="--c: #90ee90">lightgreen</span>
+              <span class="colour-swatch" style="--c: #98fb98">palegreen</span>
+            </div>
+
+            <h4>Blues</h4>
+            <div class="colour-grid">
+              <span class="colour-swatch" style="--c: #0000ff">blue</span>
+              <span class="colour-swatch" style="--c: #000080">navy</span>
+              <span class="colour-swatch" style="--c: #4169e1">royalblue</span>
+              <span class="colour-swatch" style="--c: #4682b4">steelblue</span>
+              <span class="colour-swatch" style="--c: #1e90ff">dodgerblue</span>
+              <span class="colour-swatch" style="--c: #00bfff"
+                >deepskyblue</span
+              >
+              <span class="colour-swatch" style="--c: #6495ed"
+                >cornflowerblue</span
+              >
+              <span class="colour-swatch" style="--c: #87ceeb">skyblue</span>
+              <span class="colour-swatch" style="--c: #008080">teal</span>
+              <span class="colour-swatch" style="--c: #00ffff">cyan</span>
+              <span class="colour-swatch" style="--c: #40e0d0">turquoise</span>
+            </div>
+
+            <h4>Purples &amp; Pinks</h4>
+            <div class="colour-grid">
+              <span class="colour-swatch" style="--c: #800080">purple</span>
+              <span class="colour-swatch" style="--c: #4b0082">indigo</span>
+              <span class="colour-swatch" style="--c: #8a2be2">blueviolet</span>
+              <span class="colour-swatch" style="--c: #9370db"
+                >mediumpurple</span
+              >
+              <span class="colour-swatch" style="--c: #663399"
+                >rebeccapurple</span
+              >
+              <span class="colour-swatch" style="--c: #ee82ee">violet</span>
+              <span class="colour-swatch" style="--c: #ff00ff">magenta</span>
+              <span class="colour-swatch" style="--c: #ff1493">deeppink</span>
+              <span class="colour-swatch" style="--c: #ff69b4">hotpink</span>
+              <span class="colour-swatch" style="--c: #ffc0cb">pink</span>
+            </div>
+
+            <h4>Browns</h4>
+            <div class="colour-grid">
+              <span class="colour-swatch" style="--c: #800000">maroon</span>
+              <span class="colour-swatch" style="--c: #a52a2a">brown</span>
+              <span class="colour-swatch" style="--c: #8b4513"
+                >saddlebrown</span
+              >
+              <span class="colour-swatch" style="--c: #d2691e">chocolate</span>
+              <span class="colour-swatch" style="--c: #cd853f">peru</span>
+              <span class="colour-swatch" style="--c: #d2b48c">tan</span>
+            </div>
+
+            <h4>Greys</h4>
+            <div class="colour-grid">
+              <span class="colour-swatch" style="--c: #000000">black</span>
+              <span class="colour-swatch" style="--c: #696969">dimgray</span>
+              <span class="colour-swatch" style="--c: #808080">gray</span>
+              <span class="colour-swatch" style="--c: #c0c0c0">silver</span>
+              <span class="colour-swatch" style="--c: #d3d3d3">lightgray</span>
+              <span class="colour-swatch" style="--c: #f5f5f5">whitesmoke</span>
+              <span class="colour-swatch" style="--c: #ffffff">white</span>
+            </div>
+          </section>
+
+          <!-- Caching -->
+          <section id="caching">
+            <h2>Caching</h2>
+            <p>
+              Successful responses are aggressively cached at the edge for
+              maximum performance.
+            </p>
+            <div class="code-block">
+              <pre><code>Cache-Control: public, max-age=31536000, immutable
+Content-Type: image/svg+xml
+Vary: Accept-Encoding</code></pre>
+            </div>
+            <ul>
+              <li>
+                <strong>Cache hit (~95% of requests):</strong> &lt;10ms response
+                time
+              </li>
+              <li>
+                <strong>Cache miss (~5%):</strong> &lt;50ms (generated at edge)
+              </li>
+              <li>
+                Same URL always produces the same SVG &mdash; URLs are
+                effectively permanent
+              </li>
+              <li>
+                Error responses are never cached (<code
+                  >Cache-Control: no-store</code
+                >)
+              </li>
+            </ul>
+          </section>
+
+          <!-- Errors -->
+          <section id="errors">
+            <h2>Error Handling</h2>
+            <p>
+              Errors are returned as <strong>SVG images</strong> (not JSON) so
+              they remain visible when embedded in READMEs or documentation.
+              HTTP status <code>400</code> is used for all validation errors.
+            </p>
+            <div class="code-block">
+              <pre><code>HTTP/1.1 400 Bad Request
+Content-Type: image/svg+xml
+Cache-Control: no-store</code></pre>
+            </div>
+            <p>Common error messages:</p>
+            <table class="param-table full-width">
+              <thead>
+                <tr>
+                  <th>Cause</th>
+                  <th>Error Message</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Percentage out of range</td>
+                  <td>
+                    <code>Invalid percentage value '150' (must be 0-100)</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Invalid style</td>
+                  <td>
+                    <code
+                      >Unknown style 'foo' (valid: classic, pill, minimal,
+                      badge, segments)</code
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <td>Invalid colour</td>
+                  <td>
+                    <code
+                      >Invalid color 'notacolor' (use hex or CSS named
+                      color)</code
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <td>Bad colorSteps format</td>
+                  <td>
+                    <code
+                      >Invalid colorSteps format (use
+                      'threshold:color,...')</code
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <td>Width out of range</td>
+                  <td><code>Invalid width '5000' (must be 50-500)</code></td>
+                </tr>
+                <tr>
+                  <td>Segments out of range</td>
+                  <td><code>Invalid segments '100' (must be 2-20)</code></td>
+                </tr>
+              </tbody>
+            </table>
+            <h3>Lenient defaults</h3>
+            <p>
+              Minor issues are handled gracefully rather than returning errors:
+            </p>
+            <ul>
+              <li>
+                Missing <code>style</code> &rarr; defaults to
+                <code>classic</code>
+              </li>
+              <li>
+                Missing <code>color</code> &rarr; defaults to theme colour
+              </li>
+              <li>
+                Missing <code>label</code> &rarr; auto-generated based on type
+              </li>
+              <li>Unknown query parameters &rarr; silently ignored</li>
+              <li>
+                Labels exceeding 50 characters &rarr; truncated with
+                <code>...</code>
+              </li>
+            </ul>
+          </section>
+
+          <!-- Examples -->
+          <section id="examples">
+            <h2>Examples</h2>
+
+            <h3>GitHub README Badge</h3>
+            <div class="example-block">
+              <div class="code-block">
+                <pre><code>![Build](https://api.barbuilder.dev/percentage/100?style=badge&amp;color=4c1&amp;label=Build)</code></pre>
+              </div>
+              <div class="example-preview">
+                <img
+                  src=""
+                  data-src="/percentage/100?style=badge&color=4c1&label=Build"
+                  alt="Build badge"
+                  height="18"
+                />
+              </div>
+            </div>
+
+            <h3>Star Rating</h3>
+            <div class="example-block">
+              <div class="code-block">
+                <pre><code>![Rating](https://api.barbuilder.dev/icon/4.5/5?shape=star&amp;color=ffd700&amp;label=Rating)</code></pre>
+              </div>
+              <div class="example-preview">
+                <img
+                  src=""
+                  data-src="/icon/4.5/5?shape=star&color=ffd700&label=Rating"
+                  alt="Star rating"
+                  height="18"
+                />
+              </div>
+            </div>
+
+            <h3>Task Progress</h3>
+            <div class="example-block">
+              <div class="code-block">
+                <pre><code>![Tasks](https://api.barbuilder.dev/xofy/7/10?style=segments&amp;color=1e90ff&amp;label=Tasks)</code></pre>
+              </div>
+              <div class="example-preview">
+                <img
+                  src=""
+                  data-src="/xofy/7/10?style=segments&color=1e90ff&label=Tasks"
+                  alt="Task progress"
+                  height="18"
+                />
+              </div>
+            </div>
+
+            <h3>Dark Theme</h3>
+            <div class="example-block">
+              <div class="code-block">
+                <pre><code>![Progress](https://api.barbuilder.dev/percentage/65?style=minimal&amp;color=4c71ff&amp;theme=dark)</code></pre>
+              </div>
+              <div
+                class="example-preview"
+                style="background: #1a1a2e; border-radius: 6px; padding: 12px"
+              >
+                <img
+                  src=""
+                  data-src="/percentage/65?style=minimal&color=4c71ff&theme=dark&label=Progress"
+                  alt="Dark theme"
+                  height="18"
+                />
+              </div>
+            </div>
+
+            <h3>Gradient Fill</h3>
+            <div class="example-block">
+              <div class="code-block">
+                <pre><code>![Gradient](https://api.barbuilder.dev/percentage/80?style=pill&amp;colorFrom=667eea&amp;colorTo=764ba2)</code></pre>
+              </div>
+              <div class="example-preview">
+                <img
+                  src=""
+                  data-src="/percentage/80?style=pill&colorFrom=667eea&colorTo=764ba2&label=Gradient"
+                  alt="Gradient fill"
+                  height="18"
+                />
+              </div>
+            </div>
+
+            <h3>HTML Embedding</h3>
+            <div class="code-block">
+              <pre><code>&lt;img src="https://api.barbuilder.dev/percentage/75?style=pill&amp;color=dodgerblue"
+     alt="75% progress"
+     height="20"&gt;</code></pre>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <!-- Footer will be injected -->
+    <!-- inject:footer -->
+
+    <script>
+      // Rewrite preview images to use local API in dev
+      (function () {
+        const API_BASE =
+          window.location.hostname === "localhost"
+            ? "/api"
+            : "https://barbuilder.dev";
+
+        document.querySelectorAll("img[data-src]").forEach((img) => {
+          img.src = API_BASE + img.dataset.src;
+        });
+      })();
+    </script>
+  </body>
+</html>

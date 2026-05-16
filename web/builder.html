@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- inject:head title="BarBuilder — Builder" description="Generate beautiful SVG progress bars via URL parameters. Perfect for GitHub READMEs, documentation, and more." path="/builder" -->
+  </head>
+  <body>
+    <!-- inject:header -->
+    <main class="builder-main">
+      <div class="container">
+        <div class="builder-header">
+          <div class="builder-header-text">
+            <h1>Builder</h1>
+            <p>
+              Configure your progress bar and copy the URL to embed it anywhere.
+            </p>
+          </div>
+          <div class="builder-toolbar">
+            <select
+              id="presetSelector"
+              class="preset-dropdown"
+              aria-label="Quick presets"
+            >
+              <option value="">Presets</option>
+              <option value="github-build">GitHub Build Status</option>
+              <option value="test-coverage">Test Coverage</option>
+              <option value="download-counter">Download Counter</option>
+              <option value="star-rating">Star Rating</option>
+              <option value="progress-simple">Simple Progress</option>
+              <option value="task-tracker">Task Tracker</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="editor-layout">
+          <!-- Left Panel: Configuration -->
+          <aside class="config-panel">
+            <section class="config-section">
+              <h2 data-i18n="progressType.title">Progress Type</h2>
+              <div class="radio-group" id="progressType">
+                <label>
+                  <input type="radio" name="type" value="percentage" checked />
+                  <span data-i18n="progressType.percentage">Percentage</span>
+                </label>
+                <label>
+                  <input type="radio" name="type" value="xofy" />
+                  <span data-i18n="progressType.xofy">X of Y</span>
+                </label>
+                <label>
+                  <input type="radio" name="type" value="icon" />
+                  <span data-i18n="progressType.icon">Icon (Stars)</span>
+                </label>
+              </div>
+            </section>
+
+            <section class="config-section">
+              <h2 data-i18n="value.title">Value</h2>
+              <div id="valueInputs">
+                <div class="input-group">
+                  <label for="percentageValue" data-i18n="value.percentage"
+                    >Percentage (0-100)</label
+                  >
+                  <input
+                    type="range"
+                    id="percentageValue"
+                    min="0"
+                    max="100"
+                    value="75"
+                    step="1"
+                  />
+                  <input
+                    type="number"
+                    id="percentageNumber"
+                    min="0"
+                    max="100"
+                    value="75"
+                    step="1"
+                    aria-label="Percentage value"
+                  />
+                </div>
+              </div>
+            </section>
+
+            <section class="config-section" id="styleSection">
+              <h2 data-i18n="style.title">Style</h2>
+              <div class="style-selector" id="styleSelector">
+                <button
+                  class="style-option active"
+                  data-style="classic"
+                  data-i18n="style.classic"
+                >
+                  Classic
+                </button>
+                <button
+                  class="style-option"
+                  data-style="pill"
+                  data-i18n="style.pill"
+                >
+                  Pill
+                </button>
+                <button
+                  class="style-option"
+                  data-style="minimal"
+                  data-i18n="style.minimal"
+                >
+                  Minimal
+                </button>
+                <button
+                  class="style-option"
+                  data-style="badge"
+                  data-i18n="style.badge"
+                >
+                  Badge
+                </button>
+                <button
+                  class="style-option"
+                  data-style="segments"
+                  data-i18n="style.segments"
+                >
+                  Segments
+                </button>
+              </div>
+            </section>
+
+            <section
+              class="config-section"
+              id="segmentsGroup"
+              style="display: none"
+            >
+              <h2>Segments</h2>
+              <div class="input-group">
+                <input
+                  type="number"
+                  id="segments"
+                  min="2"
+                  max="20"
+                  value="10"
+                  aria-label="Segments (2-20)"
+                />
+              </div>
+            </section>
+
+            <section
+              class="config-section"
+              id="shapeSection"
+              style="display: none"
+            >
+              <h2 data-i18n="shape.title">Icon Shape</h2>
+              <div class="style-selector" id="shapeSelector">
+                <button class="style-option" data-shape="8bit-heart">
+                  <svg
+                    viewBox="1 2 12 9"
+                    width="24"
+                    height="24"
+                    fill="black"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M4,2 h2 v1 h2 v-1 h2 v1 h2 v1 h1 v2 h-1 v1 h-1 v1 h-1 v1 h-1 v1 h-1 v1 h-2 v-1 h-1 v-1 h-1 v-1 h-1 v-1 h-1 v-1 h-1 v-2 h1 v-1 h1 v-1 z"
+                    />
+                  </svg>
+                  <span data-i18n="shape.8bitHeart">8-bit Heart</span>
+                </button>
+                <button class="style-option" data-shape="circle">
+                  <svg
+                    viewBox="0 0 16 16"
+                    width="18"
+                    height="18"
+                    fill="black"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"
+                    />
+                  </svg>
+                  <span data-i18n="shape.circle">Circle</span>
+                </button>
+                <button class="style-option" data-shape="heart">
+                  <svg
+                    viewBox="0 0 16 16"
+                    width="18"
+                    height="18"
+                    fill="black"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"
+                    />
+                  </svg>
+                  <span data-i18n="shape.heart">Heart</span>
+                </button>
+                <button class="style-option active" data-shape="star">
+                  <svg
+                    viewBox="0 0 16 16"
+                    width="18"
+                    height="18"
+                    fill="black"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z"
+                    />
+                  </svg>
+                  <span data-i18n="shape.star">Star</span>
+                </button>
+              </div>
+            </section>
+
+            <section class="config-section">
+              <h2>Colour</h2>
+              <div class="input-group">
+                <div class="color-input-group">
+                  <div class="color-picker-wrapper">
+                    <input type="color" id="colorPicker" value="#44cc11" />
+                    <svg
+                      class="color-dropper-icon"
+                      viewBox="0 0 16 16"
+                      width="11"
+                      height="11"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M13.354.646a1.207 1.207 0 0 0-1.708 0L8.5 3.793l-.646-.647a.5.5 0 1 0-.708.708L8.293 5l-7.147 7.146A.5.5 0 0 0 1 12.5v1.793l-.854.854a.5.5 0 1 0 .708.708l.854-.854H3.5a.5.5 0 0 0 .354-.146L11 7.707l1.146 1.147a.5.5 0 0 0 .708-.708l-.647-.646 3.147-3.146a1.207 1.207 0 0 0 0-1.708z"
+                      />
+                    </svg>
+                  </div>
+                  <input
+                    type="text"
+                    id="colorHex"
+                    value="#44cc11"
+                    placeholder="#hex or colour name"
+                  />
+                </div>
+                <div class="color-suggestions">
+                  <span
+                    class="color-chip selected"
+                    data-color="44cc11"
+                    style="background: #44cc11"
+                    title="Green"
+                  ></span>
+                  <span
+                    class="color-chip"
+                    data-color="4c71ff"
+                    style="background: #4c71ff"
+                    title="Blue"
+                  ></span>
+                  <span
+                    class="color-chip"
+                    data-color="ff6b6b"
+                    style="background: #ff6b6b"
+                    title="Red"
+                  ></span>
+                  <span
+                    class="color-chip"
+                    data-color="ffd700"
+                    style="background: #ffd700"
+                    title="Yellow"
+                  ></span>
+                  <span
+                    class="color-chip"
+                    data-color="1e90ff"
+                    style="background: #1e90ff"
+                    title="Sky blue"
+                  ></span>
+                  <span
+                    class="color-chip"
+                    data-color="ffa500"
+                    style="background: #ffa500"
+                    title="Orange"
+                  ></span>
+                  <span
+                    class="color-chip"
+                    data-color="800080"
+                    style="background: #800080"
+                    title="Purple"
+                  ></span>
+                  <span
+                    class="color-chip"
+                    data-color="00ffff"
+                    style="background: #00ffff"
+                    title="Cyan"
+                  ></span>
+                </div>
+              </div>
+            </section>
+
+            <section class="config-section">
+              <h2>
+                Label <span class="char-count" id="labelCount">0/50</span>
+              </h2>
+              <div class="input-group">
+                <input
+                  type="text"
+                  id="label"
+                  placeholder="Auto-generated"
+                  maxlength="50"
+                />
+              </div>
+            </section>
+
+            <section class="config-section">
+              <h2>Theme</h2>
+              <div class="toggle-group">
+                <button class="toggle active" data-theme="light">Light</button>
+                <button class="toggle" data-theme="dark">Dark</button>
+              </div>
+            </section>
+
+            <section class="config-section">
+              <h2>Width</h2>
+              <div class="input-group">
+                <label for="width">Width (50-500px)</label>
+                <input
+                  type="number"
+                  id="width"
+                  min="50"
+                  max="500"
+                  value="200"
+                />
+              </div>
+            </section>
+          </aside>
+
+          <!-- Right Panel: Preview -->
+          <section class="preview-panel">
+            <div class="preview-toolbar">
+              <div class="preview-bg-toggle">
+                <button class="bg-toggle active" data-bg="light">
+                  Light BG
+                </button>
+                <button class="bg-toggle" data-bg="dark">Dark BG</button>
+              </div>
+            </div>
+            <div class="preview-container" id="previewContainer">
+              <img id="previewImage" src="" alt="Progress bar preview" />
+            </div>
+            <div class="preview-url-bar">
+              <div class="card-url" id="generatedUrl"></div>
+              <div class="copy-buttons">
+                <button class="btn-copy" data-format="url" title="Copy URL">
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <rect x="9" y="9" width="13" height="13" rx="2" />
+                    <path
+                      d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                    />
+                  </svg>
+                  URL
+                </button>
+                <button
+                  class="btn-copy"
+                  data-format="markdown"
+                  title="Copy Markdown"
+                >
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <rect x="9" y="9" width="13" height="13" rx="2" />
+                    <path
+                      d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                    />
+                  </svg>
+                  MD
+                </button>
+                <button class="btn-copy" data-format="html" title="Copy HTML">
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <rect x="9" y="9" width="13" height="13" rx="2" />
+                    <path
+                      d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                    />
+                  </svg>
+                  HTML
+                </button>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+    <!-- inject:footer -->
+    <script type="module" src="/src/js/main.js"></script>
+  </body>
+</html>

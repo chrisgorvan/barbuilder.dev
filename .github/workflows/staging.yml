@@ -1,0 +1,64 @@
+name: Deploy Staging
+
+on:
+  workflow_dispatch:
+
+jobs:
+  # ── Deploy worker to staging environment ──
+  deploy-worker:
+    runs-on: ubuntu-latest
+    name: Deploy Worker (staging)
+    environment:
+      name: staging
+      url: https://staging.barbuilder.dev
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Deploy to Cloudflare Workers (staging)
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          workingDirectory: "cloudflare-worker"
+          command: deploy --env staging --minify
+
+  # ── Deploy web UI to staging Pages project after worker succeeds ──
+  deploy-web:
+    runs-on: ubuntu-latest
+    name: Deploy Web UI (staging)
+    needs: [deploy-worker]
+    environment:
+      name: staging
+      url: https://staging.barbuilder.dev
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build web UI
+        run: pnpm --filter @barbuilder/web build
+
+      - name: Deploy to Cloudflare Pages (staging)
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          command: pages deploy web/dist --project-name=barbuilder-web-staging --branch=staging

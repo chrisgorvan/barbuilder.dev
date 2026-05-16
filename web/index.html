@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- inject:head title="BarBuilder — Instant Progress Bars for Your Project" description="Generate beautiful, embeddable SVG progress bars via a simple URL. Perfect for GitHub READMEs, documentation, dashboards and more. No hosting required." path="/" -->
+  </head>
+  <body>
+    <!-- inject:header -->
+    <main>
+      <!-- Hero -->
+      <section class="hero">
+        <div class="hero-inner">
+          <div class="hero-text">
+            <h1>Instant Progress Bars<br />for Your Project.</h1>
+            <p>
+              Embed fully-customisable progress bars in seconds.<br />No hosting
+              required.
+            </p>
+            <div class="hero-ctas">
+              <a href="/builder" class="btn-primary">Get Started</a>
+              <a href="#showcase" class="btn-secondary">View Gallery</a>
+            </div>
+          </div>
+
+          <div class="hero-visual">
+            <div class="builder-card">
+              <div class="card-chrome">
+                <span class="chrome-dot"></span>
+                <span class="chrome-dot"></span>
+                <span class="chrome-dot"></span>
+                <span class="chrome-label">BarBuilder — builder</span>
+              </div>
+              <div class="card-body">
+                <div class="card-preview-area">
+                  <img id="mini-preview" src="" alt="Progress bar preview" />
+                </div>
+                <div class="card-controls">
+                  <div class="card-control">
+                    <label for="mini-value" class="card-ctrl-label"
+                      >Value</label
+                    >
+                    <input
+                      type="range"
+                      id="mini-value"
+                      class="mini-slider"
+                      min="0"
+                      max="100"
+                      value="75"
+                    />
+                    <span class="card-ctrl-value" id="mini-value-display"
+                      >75</span
+                    >
+                  </div>
+                  <div class="card-control">
+                    <label for="mini-width" class="card-ctrl-label"
+                      >Width</label
+                    >
+                    <input
+                      type="range"
+                      id="mini-width"
+                      class="mini-slider"
+                      min="100"
+                      max="400"
+                      value="220"
+                    />
+                    <span class="card-ctrl-value" id="mini-width-display"
+                      >220</span
+                    >
+                  </div>
+                  <div class="card-control">
+                    <span class="card-ctrl-label">Colour</span>
+                    <div class="card-colour-chips">
+                      <button
+                        class="card-colour-chip selected"
+                        data-color="44cc11"
+                        style="background: #44cc11"
+                        aria-label="Green"
+                      ></button>
+                      <button
+                        class="card-colour-chip"
+                        data-color="4c71ff"
+                        style="background: #4c71ff"
+                        aria-label="Blue"
+                      ></button>
+                      <button
+                        class="card-colour-chip"
+                        data-color="ff6b6b"
+                        style="background: #ff6b6b"
+                        aria-label="Red"
+                      ></button>
+                      <button
+                        class="card-colour-chip"
+                        data-color="ffd700"
+                        style="background: #ffd700"
+                        aria-label="Yellow"
+                      ></button>
+                      <button
+                        class="card-colour-chip"
+                        data-color="1e90ff"
+                        style="background: #1e90ff"
+                        aria-label="Sky blue"
+                      ></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <div class="card-url" id="mini-url"></div>
+                <button class="card-copy-btn" id="mini-copy" title="Copy URL">
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <rect x="9" y="9" width="13" height="13" rx="2" />
+                    <path
+                      d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Features -->
+      <section class="section section-alt" id="features">
+        <div class="section-inner">
+          <h2 class="section-heading">Why BarBuilder?</h2>
+          <p class="section-sub">
+            Everything you need to ship beautiful progress indicators,
+            instantly.
+          </p>
+          <div class="features-grid">
+            <div class="feature-card">
+              <div class="feature-icon fi-green">
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="4" y1="6" x2="20" y2="6" />
+                  <line x1="4" y1="12" x2="14" y2="12" />
+                  <line x1="4" y1="18" x2="18" y2="18" />
+                  <circle cx="17" cy="6" r="2" />
+                  <circle cx="17" cy="12" r="2" />
+                  <circle cx="21" cy="18" r="2" />
+                </svg>
+              </div>
+              <div>
+                <h3>Infinite Customisation</h3>
+                <p>
+                  Customise colours, styles, shapes and labels to match your
+                  brand. Choose from classic bars, pill, minimal, badge,
+                  segments, icon ratings and more.
+                </p>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon fi-blue">
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="16 18 22 12 16 6" />
+                  <polyline points="8 6 2 12 8 18" />
+                </svg>
+              </div>
+              <div>
+                <h3>Easy API &amp; Embedding</h3>
+                <p>
+                  Just a URL. Embed in GitHub READMEs, documentation,
+                  dashboards, emails and anywhere that renders images — no
+                  JavaScript needed.
+                </p>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon fi-purple">
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="5" y="2" width="14" height="20" rx="2" />
+                  <line x1="12" y1="18" x2="12" y2="18.01" />
+                </svg>
+              </div>
+              <div>
+                <h3>Responsive Design</h3>
+                <p>
+                  Bars scale to any width with crisp SVG rendering. They look
+                  sharp on retina screens, in dark mode, and across all devices
+                  and browsers.
+                </p>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon fi-orange">
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="23 4 23 10 17 10" />
+                  <path d="M20.49 15a9 9 0 1 1-.18-4.5" />
+                </svg>
+              </div>
+              <div>
+                <h3>Live Real-Time Updates</h3>
+                <p>
+                  Update your bar by changing the URL value. The image updates
+                  immediately everywhere it's embedded — no cache-busting or
+                  redeployment required.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Showcase -->
+      <section class="section" id="showcase">
+        <div class="section-inner">
+          <h2 class="section-heading">Showcase</h2>
+          <p class="section-sub">
+            A few examples of what you can build with BarBuilder.
+          </p>
+          <div class="showcase-grid">
+            <div class="showcase-card">
+              <div class="showcase-label">GitHub Build Status</div>
+              <div class="showcase-bar">
+                <img
+                  src="https://api.barbuilder.dev/percentage/100?style=badge&color=44cc11&label=Build"
+                  alt="Build 100%"
+                  height="20"
+                />
+              </div>
+              <p class="showcase-desc">
+                Badge-style bars are ideal for GitHub READMEs. Show build
+                status, test coverage, or release progress at a glance.
+              </p>
+            </div>
+
+            <div class="showcase-card">
+              <div class="showcase-label">Star Rating</div>
+              <div class="showcase-bar">
+                <img
+                  src="https://api.barbuilder.dev/icon/4.5/5?color=ffd700&label=Rating"
+                  alt="4.5 out of 5 stars"
+                  width="200"
+                />
+              </div>
+              <p class="showcase-desc">
+                Icon-type bars support half steps. Perfect for ratings, scores,
+                and satisfaction metrics with a visual star or custom shape.
+              </p>
+            </div>
+
+            <div class="showcase-card">
+              <div class="showcase-label">Task Tracker</div>
+              <div class="showcase-bar">
+                <img
+                  src="https://api.barbuilder.dev/xofy/7/10?style=segments&color=1e90ff&label=Tasks"
+                  alt="7 of 10 tasks"
+                  width="200"
+                />
+              </div>
+              <p class="showcase-desc">
+                Segmented X-of-Y bars let you track discrete progress — tasks
+                completed, milestones reached, or steps in a workflow.
+              </p>
+            </div>
+
+            <div class="showcase-card">
+              <div class="showcase-label">Download Counter</div>
+              <div class="showcase-bar">
+                <img
+                  src="https://api.barbuilder.dev/xofy/1250/2000?style=classic&color=1e90ff&label=Downloads"
+                  alt="1250 of 2000 downloads"
+                  width="200"
+                />
+              </div>
+              <p class="showcase-desc">
+                Show X-of-Y progress for download goals, funding targets, or any
+                metric with a defined total.
+              </p>
+            </div>
+
+            <div class="showcase-card">
+              <div class="showcase-label">Test Coverage</div>
+              <div class="showcase-bar">
+                <img
+                  src="https://api.barbuilder.dev/percentage/87?style=pill&color=32cd32&label=87%25"
+                  alt="87% test coverage"
+                  width="200"
+                />
+              </div>
+              <p class="showcase-desc">
+                Pill-style bars give a softer, modern look. Great for test
+                coverage badges, health scores, and completion rates.
+              </p>
+            </div>
+
+            <div class="showcase-card">
+              <div class="showcase-label">Dark Theme</div>
+              <div
+                class="showcase-bar"
+                style="background: #1a1a2e; border-radius: 6px; padding: 10px"
+              >
+                <img
+                  src="https://api.barbuilder.dev/percentage/65?style=minimal&color=4c71ff&theme=dark&label=Progress"
+                  alt="65% progress dark"
+                  width="200"
+                />
+              </div>
+              <p class="showcase-desc">
+                Every bar supports a dark theme — ideal for dark-mode READMEs,
+                dashboards, and documentation sites.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- inject:footer -->
+    <script>
+      (function () {
+        const API_BASE =
+          window.location.hostname === "localhost"
+            ? "http://localhost:8787"
+            : `https://api.${window.location.hostname}`;
+
+        // Rewrite showcase images to the correct API base
+        document.querySelectorAll(".showcase-bar img").forEach((img) => {
+          img.src = img.src.replace("https://api.barbuilder.dev", API_BASE);
+        });
+
+        const state = { value: 75, width: 220, color: "44cc11" };
+
+        const preview = document.getElementById("mini-preview");
+        const urlEl = document.getElementById("mini-url");
+        const valueSlider = document.getElementById("mini-value");
+        const widthSlider = document.getElementById("mini-width");
+        const valueDisplay = document.getElementById("mini-value-display");
+        const widthDisplay = document.getElementById("mini-width-display");
+        const chips = document.querySelectorAll(".card-colour-chip");
+
+        function generateUrl() {
+          return `${API_BASE}/percentage/${state.value}?style=pill&color=${state.color}&width=${state.width}`;
+        }
+
+        function renderUrl(fullUrl) {
+          const domain = API_BASE.replace(/^https?:\/\//, "");
+          const rest = fullUrl.replace(API_BASE, "");
+          const [path, qs] = rest.split("?");
+          urlEl.textContent = "";
+          const d = document.createElement("span");
+          d.className = "url-domain";
+          d.textContent = domain;
+          const p = document.createElement("span");
+          p.className = "url-path";
+          p.textContent = path;
+          urlEl.appendChild(d);
+          urlEl.appendChild(p);
+          if (qs) {
+            const q = document.createElement("span");
+            q.className = "url-params";
+            q.textContent = "?" + qs;
+            urlEl.appendChild(q);
+          }
+        }
+
+        function sliderPercent(slider) {
+          return (
+            ((slider.value - slider.min) / (slider.max - slider.min)) * 100
+          );
+        }
+
+        function updateSliderFill(slider) {
+          const pct = sliderPercent(slider);
+          slider.style.background = `linear-gradient(to right,#${state.color} 0%,#${state.color} ${pct}%,#e2e8f0 ${pct}%,#e2e8f0 100%)`;
+          slider.style.setProperty("--thumb-border", `#${state.color}`);
+        }
+
+        let debounce;
+        function scheduleUpdate() {
+          clearTimeout(debounce);
+          debounce = setTimeout(() => {
+            const url = generateUrl();
+            preview.src = url;
+            renderUrl(url);
+          }, 120);
+        }
+
+        valueSlider.addEventListener("input", () => {
+          state.value = parseInt(valueSlider.value, 10);
+          valueDisplay.textContent = state.value;
+          updateSliderFill(valueSlider);
+          scheduleUpdate();
+        });
+
+        widthSlider.addEventListener("input", () => {
+          state.width = parseInt(widthSlider.value, 10);
+          widthDisplay.textContent = state.width;
+          updateSliderFill(widthSlider);
+          scheduleUpdate();
+        });
+
+        chips.forEach((chip) => {
+          chip.addEventListener("click", () => {
+            chips.forEach((c) => c.classList.remove("selected"));
+            chip.classList.add("selected");
+            state.color = chip.dataset.color;
+            updateSliderFill(valueSlider);
+            updateSliderFill(widthSlider);
+            scheduleUpdate();
+          });
+        });
+
+        // Copy button
+        const copyBtn = document.getElementById("mini-copy");
+        const copyIcon =
+          '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+        const checkIcon =
+          '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+        copyBtn.addEventListener("click", () => {
+          navigator.clipboard.writeText(generateUrl()).then(() => {
+            copyBtn.innerHTML = checkIcon;
+            copyBtn.classList.add("copied");
+            setTimeout(() => {
+              copyBtn.innerHTML = copyIcon;
+              copyBtn.classList.remove("copied");
+            }, 2000);
+          });
+        });
+
+        // Initial render
+        updateSliderFill(valueSlider);
+        updateSliderFill(widthSlider);
+        const initialUrl = generateUrl();
+        preview.src = initialUrl;
+        renderUrl(initialUrl);
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,77 @@
+{
+  "app": {
+    "title": "BarBuilder.dev",
+    "tagline": "Barres de Progression SVG Intégrables"
+  },
+  "nav": {
+    "language": "Langue"
+  },
+  "progressType": {
+    "title": "Type de Progression",
+    "percentage": "Pourcentage",
+    "xofy": "X sur Y",
+    "icon": "Icônes (Étoiles)"
+  },
+  "value": {
+    "title": "Valeur",
+    "percentage": "Pourcentage (0-100)",
+    "current": "Actuel",
+    "currentHalf": "Actuel (supporte demi-icônes : 2.5, 3.5, etc.)",
+    "total": "Total"
+  },
+  "style": {
+    "title": "Style",
+    "classic": "Classique",
+    "pill": "Pilule",
+    "minimal": "Minimaliste",
+    "badge": "Badge",
+    "segments": "Segments"
+  },
+  "shape": {
+    "title": "Forme de l'Icône",
+    "8bitHeart": "Cœur 8-bit",
+    "circle": "Cercle",
+    "heart": "Cœur",
+    "star": "Étoile"
+  },
+  "color": {
+    "title": "Couleur",
+    "label": "Couleur",
+    "helpText": "💡 Essayez des couleurs nommées : red, blue, green, yellow, orange, purple, pink, cyan, lime, navy, teal, gold, coral, salmon, ou tout nom de couleur CSS"
+  },
+  "label": {
+    "title": "Étiquette",
+    "label": "Étiquette",
+    "placeholder": "Généré automatiquement",
+    "charCount": "{current}/50"
+  },
+  "theme": {
+    "title": "Thème",
+    "light": "Clair",
+    "dark": "Sombre"
+  },
+  "advanced": {
+    "title": "Options Avancées",
+    "width": "Largeur (50-500px)",
+    "segments": "Segments (2-20)"
+  },
+  "preview": {
+    "title": "Aperçu",
+    "lightBg": "Fond Clair",
+    "darkBg": "Fond Sombre"
+  },
+  "output": {
+    "title": "URL Générée",
+    "copyUrl": "Copier l'URL",
+    "copyMarkdown": "Copier Markdown",
+    "copyHtml": "Copier HTML",
+    "copied": "Copié !"
+  },
+  "presets": {
+    "title": "Préréglages Rapides",
+    "select": "Sélectionnez un préréglage..."
+  },
+  "footer": {
+    "text": "© 2026 BarBuilder.dev • Financé par dons • Open Source"
+  }
+}

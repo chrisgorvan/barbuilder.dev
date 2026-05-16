@@ -1,0 +1,28 @@
+{
+  "name": "@barbuilder/api",
+  "version": "2.0.0",
+  "type": "module",
+  "description": "BarBuilder.dev API server",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage"
+  },
+  "dependencies": {
+    "@barbuilder/core": "workspace:*",
+    "@fastify/cors": "11.2.0",
+    "@fastify/rate-limit": "10.3.0",
+    "fastify": "5.8.5"
+  },
+  "devDependencies": {
+    "@types/node": "25.8.0",
+    "@vitest/coverage-v8": "4.1.6",
+    "@vitest/ui": "4.1.6",
+    "tsx": "4.22.0",
+    "typescript": "6.0.3",
+    "vitest": "4.1.6"
+  }
+}

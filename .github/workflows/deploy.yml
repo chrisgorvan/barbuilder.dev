@@ -1,0 +1,198 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  # ── Parallel build jobs ────────────────────────────
+  build-worker:
+    runs-on: ubuntu-latest
+    name: Build & Test Worker
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Run core tests with coverage
+        run: pnpm --filter @barbuilder/core test:coverage --run
+
+      - name: Run api integration tests
+        run: pnpm --filter @barbuilder/api test --run
+
+      - name: Coverage summary
+        if: always()
+        run: |
+          if [ -f packages/core/coverage/coverage-summary.json ]; then
+            echo "### Core Test Coverage" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            node -e "
+              const c = require('./packages/core/coverage/coverage-summary.json').total;
+              const fmt = (v) => v.pct + '%';
+              console.log('| Metric | Coverage |');
+              console.log('|--------|----------|');
+              console.log('| Statements | ' + fmt(c.statements) + ' |');
+              console.log('| Branches | ' + fmt(c.branches) + ' |');
+              console.log('| Functions | ' + fmt(c.functions) + ' |');
+              console.log('| Lines | ' + fmt(c.lines) + ' |');
+            " >> $GITHUB_STEP_SUMMARY
+          fi
+
+  build-web:
+    runs-on: ubuntu-latest
+    name: Build Web UI
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build web UI
+        run: pnpm --filter @barbuilder/web build
+
+      - name: Upload build artefact
+        uses: actions/upload-artifact@v7
+        with:
+          name: web-dist
+          path: web/dist
+
+  # ── Deploy worker first (push to main only) ──────
+  deploy-worker:
+    runs-on: ubuntu-latest
+    name: Deploy Worker
+    needs: [build-worker]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    environment:
+      name: production
+      url: https://barbuilder.dev
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Deploy to Cloudflare Workers
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          workingDirectory: "cloudflare-worker"
+          command: deploy --env production --minify
+
+  # ── Deploy UI only after worker succeeds (push to main only) ──
+  deploy-web:
+    runs-on: ubuntu-latest
+    name: Deploy Web UI
+    needs: [build-web, deploy-worker]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    environment:
+      name: production
+      url: https://barbuilder.dev
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Download build artefact
+        uses: actions/download-artifact@v8
+        with:
+          name: web-dist
+          path: web/dist
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          workingDirectory: "cloudflare-worker"
+          command: pages deploy ../web/dist --project-name=barbuilder-web
+
+  # ── Tag deployed commit and publish GitHub Release ──
+  release:
+    runs-on: ubuntu-latest
+    name: Create GitHub Release
+    needs: [deploy-worker, deploy-web]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
+    concurrency:
+      group: release
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Determine next version
+        id: version
+        run: |
+          pkg_version=$(node -p "require('./package.json').version")
+          latest=$(git tag --list 'v*.*.*' --sort=-v:refname | head -n1)
+          if [ -z "$latest" ]; then
+            next="v${pkg_version}"
+          else
+            v="${latest#v}"
+            higher=$(printf '%s\n%s\n' "$v" "$pkg_version" | sort -V | tail -n1)
+            if [ "$v" != "$pkg_version" ] && [ "$higher" = "$pkg_version" ]; then
+              next="v${pkg_version}"
+            else
+              major="${v%%.*}"
+              rest="${v#*.}"
+              minor="${rest%%.*}"
+              patch="${rest#*.}"
+              next="v${major}.${minor}.$((patch + 1))"
+            fi
+          fi
+          echo "next=$next" >> "$GITHUB_OUTPUT"
+          echo "previous=$latest" >> "$GITHUB_OUTPUT"
+          echo "Next release: $next (previous: ${latest:-none})"
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          next="${{ steps.version.outputs.next }}"
+          prev="${{ steps.version.outputs.previous }}"
+          if [ -n "$prev" ]; then
+            gh release create "$next" \
+              --target "$GITHUB_SHA" \
+              --title "$next" \
+              --generate-notes \
+              --notes-start-tag "$prev"
+          else
+            gh release create "$next" \
+              --target "$GITHUB_SHA" \
+              --title "$next" \
+              --generate-notes
+          fi

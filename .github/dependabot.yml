@@ -1,0 +1,45 @@
+version: 2
+
+updates:
+  # npm dependencies (pnpm compatible)
+  - package-ecosystem: "npm"
+    directories:
+      - "/"
+      - "/api"
+      - "/web"
+      - "/cloudflare-worker"
+      - "/packages/core"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 10
+    groups:
+      # Group minor/patch updates to reduce PR noise
+      production:
+        dependency-type: "production"
+        update-types:
+          - "minor"
+          - "patch"
+      dev-tools:
+        dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "deps"
+      prefix-development: "deps(dev)"
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "ci"
+    commit-message:
+      prefix: "ci"

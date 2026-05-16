@@ -878,7 +878,13 @@ Cache-Control: no-store</code></pre>
             : "https://barbuilder.dev";
 
         document.querySelectorAll("img[data-src]").forEach((img) => {
-          img.src = API_BASE + img.dataset.src;
+          const ds = img.dataset.src || "";
+          // If data-src is already an absolute URL (http://, https:// or //), use it as-is.
+          if (/^(?:https?:)?\/\//i.test(ds)) {
+            img.src = ds;
+          } else {
+            img.src = API_BASE + ds;
+          }
         });
       })();
     </script>

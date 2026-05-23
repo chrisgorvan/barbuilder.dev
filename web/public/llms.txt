@@ -1,0 +1,140 @@
+BarBuilder API — Full Reference
+
+Overview
+BarBuilder generates configurable SVG progress indicators via simple HTTP GET requests. Each bar is fully described by its URL path and query parameters; there are no API keys or POST bodies. Responses are SVG images (Content-Type: image/svg+xml) designed to be embedded in READMEs, web pages, dashboards, emails, or any HTML-capable renderer.
+
+Base URL
+https://api.barbuilder.dev
+
+Primary Endpoints
+
+- GET /percentage/{value}
+  - Purpose: Render a percentage-based progress bar.
+  - Path parameter: {value} — numeric percentage (0–100).
+  - Example: /percentage/75?style=pill&color=dodgerblue&label=Progress
+
+- GET /xofy/{current}/{total}
+  - Purpose: Render a progress bar showing current out of total.
+  - Path parameters: {current} and {total} — numeric values; total must be > 0.
+  - Example: /xofy/7/10?style=segments&color=1e90ff&label=Tasks
+
+- GET /icon/{current}/{total}
+  - Purpose: Render an icon-based indicator (stars, hearts, circles) supporting half-step rendering for fractional current values.
+  - Path parameters: {current} (may be fractional) and {total}
+  - Example: /icon/3.5/5?shape=star&color=ffd700&label=Rating
+
+- GET /health
+  - Purpose: Lightweight health check for HTTP integrations.
+
+Query Parameters (summary)
+
+- style (string)
+  - Controls visual appearance. Valid values: classic, pill, minimal, badge, segments, icon.
+  - Default: classic
+
+- color (string)
+  - Hex (without #, 3- or 6-digit) or CSS named colour (case-insensitive). Default: theme colour (#44cc11 for light theme).
+  - Examples: color=ff6347, color=4c1 (expands), color=tomato
+
+- colorFrom, colorTo
+  - When both provided, produces a left→right gradient fill.
+
+- colorSteps
+  - Threshold-based colours. Format: threshold:color,threshold:color,... (e.g. 33:crimson,66:gold,100:limegreen). Thresholds are numeric breakpoints.
+
+- backgroundColor
+  - Colour for the unfilled area. Defaults based on theme: light theme #e0e0e0, dark theme #333333.
+
+- theme (light|dark)
+  - Controls default label/background colours and subtle styling.
+
+- label (string)
+  - Custom text label (max 50 characters; truncated with ... if longer). Default: auto-generated per endpoint.
+
+- width (integer)
+  - Internal SVG width in pixels. Allowed range: 50–500. Default: 200.
+
+- segments (integer)
+  - For the segments style, number of discrete blocks. Range: 2–20. For xofy endpoints, defaults to total (clamped to 2–20).
+
+- shape (string)
+  - For /icon endpoint: star (default), heart, circle, 8bit-heart.
+
+Styling Notes
+
+- Styles
+  - classic: traditional bar with label area
+  - pill: rounded ends, modern look
+  - minimal: thin bar, no labels
+  - badge: compact badge with auto-value
+  - segments: discrete blocks (useful for tasks/counts)
+  - icon: icon-only rendering handled by a dedicated renderer
+
+- Labels and accessibility
+  - Always include an informative label or alt text when embedding in HTML or Markdown to improve accessibility and provide fallbacks for clients that block external images.
+
+Gradients & Thresholds
+
+- Gradient: specify both colorFrom and colorTo to create a smooth gradient across the filled portion.
+- Thresholds: colorSteps allow mapping ranges to colour breakpoints so the bar colour changes depending on the value.
+
+Caching contract
+
+- Successful responses: Cache-Control: public, max-age=31536000, immutable
+  - The same URL will return the same SVG for up to one year in edge caches. Treat URLs as effectively permanent; changing parameters yields a new URL and a new cache entry.
+
+- Error responses: Cache-Control: no-store
+
+Error handling
+
+- All validation errors return an SVG image (HTTP 400) containing the error message so failures remain visible when embedded.
+- Common error messages:
+  - Invalid percentage value '150' (must be 0-100)
+  - Unknown style 'foo' (valid: classic, pill, minimal, badge, segments)
+  - Invalid color 'notacolor' (use hex or CSS named color)
+  - Invalid colorSteps format (use 'threshold:color,...')
+  - Invalid width '5000' (must be 50-500)
+  - Invalid segments '100' (must be 2-20)
+
+Lenient defaults
+
+- Missing or invalid minor parameters are handled gracefully:
+  - Missing style → defaults to classic
+  - Missing color → defaults to theme colour
+  - Missing label → auto-generated label
+  - Labels longer than 50 chars are truncated with ...
+
+Examples (copyable)
+
+- Percentage (pill):
+  https://api.barbuilder.dev/percentage/75?style=pill&color=dodgerblue&label=Progress
+
+- X-of-Y (segments):
+  https://api.barbuilder.dev/xofy/7/10?style=segments&color=1e90ff&label=Tasks
+
+- Icon (stars):
+  https://api.barbuilder.dev/icon/3.5/5?shape=star&color=ffd700&label=Rating
+
+- Gradient (pill):
+  https://api.barbuilder.dev/percentage/75?style=pill&colorFrom=667eea&colorTo=764ba2&label=Gradient
+
+- Badge for README:
+  https://api.barbuilder.dev/percentage/100?style=badge&color=4c1&label=Build
+
+Embedding Guidance
+
+- GitHub README: use standard Markdown image syntax:
+  ![Build](https://api.barbuilder.dev/percentage/100?style=badge&color=4c1&label=Build)
+
+- GitHub dark mode: use <picture> with a source media query to serve a dark-theme SVG when prefers-color-scheme: dark.
+
+- HTML: use <img> with width or responsive CSS. For sharpest results, match the HTML display width to the internal `width` parameter.
+
+- Notion / Confluence / Email: external image embeds work, but many platforms cache aggressively; use cache-busting query param (e.g. &v=2) if immediate refresh is required.
+
+
+Troubleshooting
+
+- If an embed returns a red error bar, open the URL directly in a browser to read the embedded error message. Check parameter ranges, colour syntax, and style names.
+
+EOF

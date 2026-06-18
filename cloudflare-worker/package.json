@@ -10,7 +10,7 @@
     "@barbuilder/core": "workspace:*"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "4.20260608.1",
-    "wrangler": "4.98.0"
+    "@cloudflare/workers-types": "4.20260615.1",
+    "wrangler": "4.100.0"
   }
 }

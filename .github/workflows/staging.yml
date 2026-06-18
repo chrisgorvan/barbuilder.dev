@@ -63,4 +63,5 @@ jobs:
         uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          command: pages deploy web/dist --project-name=barbuilder-web-staging --branch=staging
+          workingDirectory: "cloudflare-worker"
+          command: pages deploy ../web/dist --project-name=barbuilder-web-staging --branch=staging

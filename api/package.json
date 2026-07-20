@@ -13,9 +13,9 @@
   },
   "dependencies": {
     "@barbuilder/core": "workspace:*",
-    "@fastify/cors": "11.2.0",
+    "@fastify/cors": "11.3.0",
     "@fastify/rate-limit": "10.3.0",
-    "fastify": "5.8.5"
+    "fastify": "5.10.0"
   },
   "devDependencies": {
     "@types/node": "25.9.3",

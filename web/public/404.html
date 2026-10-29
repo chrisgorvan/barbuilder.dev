@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, follow" />
+    <meta name="theme-color" content="#ffffff" />
+    <title>Page not found — BarBuilder</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+        color: #1a202c;
+        background: #f7fafc;
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-width: 320px;
+        min-height: 100vh;
+        margin: 0;
+        display: grid;
+        grid-template-rows: auto 1fr;
+      }
+
+      header {
+        height: 64px;
+        padding: 0 24px;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #e2e8f0;
+        background: #fff;
+      }
+
+      .brand {
+        color: inherit;
+        font-size: 1.2rem;
+        font-weight: 800;
+        letter-spacing: -0.3px;
+        text-decoration: none;
+      }
+
+      main {
+        width: min(100% - 40px, 600px);
+        margin: auto;
+        padding: 64px 0;
+        text-align: center;
+      }
+
+      .code {
+        margin: 0;
+        color: #38a80e;
+        font-size: clamp(5rem, 20vw, 8rem);
+        font-weight: 800;
+        letter-spacing: -0.08em;
+        line-height: 1;
+      }
+
+      h1 {
+        margin: 24px 0 12px;
+        font-size: clamp(1.75rem, 6vw, 2.25rem);
+        line-height: 1.2;
+      }
+
+      main p {
+        margin: 0 auto 28px;
+        color: #4a5568;
+        font-size: 1.05rem;
+      }
+
+      .home-link {
+        display: inline-block;
+        padding: 11px 20px;
+        border-radius: 8px;
+        background: #44cc11;
+        color: #1a202c;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background 0.15s;
+      }
+
+      .home-link:hover {
+        background: #38a80e;
+      }
+
+      .home-link:focus-visible {
+        outline: 3px solid #4c71ff;
+        outline-offset: 3px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a class="brand" href="/">BarBuilder</a>
+    </header>
+    <main>
+      <p class="code" aria-hidden="true">404</p>
+      <h1>Page not found</h1>
+      <p>The page you're looking for doesn't exist or may have moved.</p>
+      <a class="home-link" href="/">Back to homepage</a>
+    </main>
+  </body>
+</html>
